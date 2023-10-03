@@ -1,0 +1,68 @@
+name: tafatun
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.2 <3.0.0'
+
+dependencies:
+  audioplayers: ^5.2.0
+  awesome_notifications: ^0.7.4+1
+  cloud_firestore: ^4.8.4
+  cupertino_icons: ^1.0.5
+  dartz: ^0.10.1
+  firebase_auth: ^4.7.2
+  firebase_core: ^2.15.0
+  flutter:
+    sdk: flutter
+  flutter_local_notifications: ^15.1.1
+  get: ^4.6.5
+  http: ^1.1.0
+  intl: ^0.17.0
+  open_file: ^3.1.0
+  path_provider: ^2.0.1
+  pdf: ^3.1.0
+  permission_handler: ^11.0.0
+  record: ^4.4.4
+  shared_preferences: ^2.2.0
+
+dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^2.0.0
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png" #assets/images/logo.png
+  adaptive_icon_background: "#ffffff"
+  min_sdk_android: 21
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/images/type/
+
+  fonts:
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri/Amiri-Regular.ttf
+        - asset: assets/fonts/Amiri/Amiri-Bold.ttf
+        - asset: assets/fonts/Amiri/Amiri-Italic.ttf
+        - asset: assets/fonts/Amiri/Amiri-BoldItalic.ttf
+          weight: 700
+
+    - family: Kosugi
+      fonts:
+        - asset: assets/fonts/Kosugi/Kosugi-Regular.ttf
+          weight: 700
+    - family: Noto_Sans_Arabic
+      fonts:
+        - asset: assets/fonts/Noto_Sans_Arabic/NotoSansArabic-VariableFont_wdth,wght.ttf
+          weight: 700

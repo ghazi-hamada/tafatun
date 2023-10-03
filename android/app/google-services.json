@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "936524328154",
+    "project_id": "tafatun-app",
+    "storage_bucket": "tafatun-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936524328154:android:94de11a41199d1cca349e3",
+        "android_client_info": {
+          "package_name": "com.example.tafatun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936524328154-i1pk45dprs512fraoquocot832c81863.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSdKhYz2McrbNS7HDgjOdXNcCY_YEWizc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936524328154-i1pk45dprs512fraoquocot832c81863.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:936524328154:android:8eadcc55468b05f8a349e3",
+        "android_client_info": {
+          "package_name": "com.example.tafatun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "936524328154-i1pk45dprs512fraoquocot832c81863.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSdKhYz2McrbNS7HDgjOdXNcCY_YEWizc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "936524328154-i1pk45dprs512fraoquocot832c81863.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
