@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';
@@ -41,7 +40,6 @@ class _TestState extends State<Test> {
     } catch (e) {
       print("Error Starting recording: ${e.toString()}");
     }
-    
   }
 
   Future<void> stopRecording() async {
@@ -94,7 +92,8 @@ class _TestState extends State<Test> {
                     : const Text("Start recording")),
             if (!isRecording && audioPath.isNotEmpty)
               ElevatedButton(
-                  onPressed: playRecording, child: const Text("Play recording")),
+                  onPressed: playRecording,
+                  child: const Text("Play recording")),
           ],
         ),
       ),

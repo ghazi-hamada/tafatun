@@ -1,5 +1,4 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:tafatun/test.dart';
 import 'package:tafatun/view/ai/ai_settings.dart';
 import 'package:tafatun/view/auth/auth_page.dart';
 import 'package:tafatun/view/auth/login.dart';
@@ -39,7 +38,7 @@ abstract class AppRoutes {
     GetPage(name: kSignup, page: () => const Singup()),
     GetPage(name: kLogin, page: () => const Login()),
     GetPage(
-      name: kAuth, page: () =>  const AuthPage(),//const Test(),
+      name: kAuth, page: () => const AuthPage(), //const Test(),
     ),
     GetPage(name: kAddMedicine, page: () => const AddMedicine()),
     GetPage(name: kNavbar, page: () => const NavBar()),

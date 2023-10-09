@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:tafatun/core/Methods/timestamptotime.dart';
-import 'package:tafatun/core/constant/image_assets.dart';
 import 'package:tafatun/helper/pdf_helper.dart';
 import 'package:tafatun/model/medicine_model.dart';
 import 'package:pdf/widgets.dart';

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -62,8 +60,6 @@ class HomeControllerImp extends HomeController {
     update();
     print(audioData.length);
   }
-
-  
 
   @override
   void onInit() async {
