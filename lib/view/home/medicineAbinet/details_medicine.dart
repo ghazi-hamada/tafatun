@@ -1,13 +1,19 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:tafatun/app_routes.dart';
+import 'package:tafatun/controller/expiredmedicines_controller.dart';
+import 'package:tafatun/controller/medicineAbinet_controller.dart';
 import 'package:tafatun/core/Methods/timestamptotime.dart';
+import 'package:tafatun/main.dart';
 import 'package:tafatun/model/medicine_model.dart';
 import 'package:tafatun/view/navigationBar/navBar.dart';
 import 'package:tafatun/view/home/widgets/appbar_widget.dart';
 import 'package:tafatun/view/home/widgets/line_home_widget.dart';
 import 'package:get/get.dart';
 
-class DetailsMedicine extends StatelessWidget {
+class DetailsMedicine extends GetView<ExpiredMedicinesControllerImp> {
   DetailsMedicine({Key? key}) : super(key: key);
   final MedicineModel medicineModel = Get.arguments["medicineModel"];
   final bool isExpired = Get.arguments["isExpired"];
@@ -115,7 +121,9 @@ class DetailsMedicine extends StatelessWidget {
                       ButtonExpiredMedicines(
                         title: "استرجاع الدواء",
                         onPressed: () {
-                          // deleteMedicine(medicineModel.id!);
+                          Get.toNamed(AppRoutes.kAddMedicine, arguments: {
+                            "medicineModel": medicineModel,
+                          });
                         },
                       ),
                       ButtonExpiredMedicines(
@@ -139,11 +147,9 @@ class DetailsMedicine extends StatelessWidget {
                                         child: const Text("لا")),
                                     TextButton(
                                         onPressed: () async {
-                                          await FirebaseFirestore.instance
-                                              .collection("medicine")
-                                              .doc(medicineModel.id)
-                                              .delete();
-                                          Get.offAll(() => const NavBar());
+                                          controller.deleteMedicine(
+                                              medicineModel.id!);
+                                          Get.back();
                                         },
                                         child: const Text("نعم")),
                                   ],

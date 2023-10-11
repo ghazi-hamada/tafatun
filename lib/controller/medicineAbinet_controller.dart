@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tafatun/core/Methods/timestamptotime.dart';
@@ -29,10 +28,8 @@ class MedicineAbinetControllerImp extends MedicineAbinetController {
       }
       update();
     }
-    // print(medicinedata[0].nameMedicine);
   }
 
-  // var fcm = FirebaseMessaging.instance;
   @override
   void onInit() async {
     getData();
@@ -40,8 +37,6 @@ class MedicineAbinetControllerImp extends MedicineAbinetController {
     super.onInit();
   }
 
-
-  
   @override
   void dispose() {
     searchController.dispose();

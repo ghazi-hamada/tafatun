@@ -61,7 +61,8 @@ class Medical extends StatelessWidget {
                 final pdfFile = await PdfInvoicePdfHelper.generate(
                     homeControllerImp.medicinedata);
 
-                await PdfHelper.openFile(pdfFile);
+                await PdfHelper.openFile(pdfFile)
+                    ;
               },
             ),
           ],

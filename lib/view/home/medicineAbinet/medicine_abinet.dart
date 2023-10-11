@@ -40,19 +40,21 @@ class MedicineAbinet extends StatelessWidget {
             ),
             Expanded(
               child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 9 / 7,
-                    crossAxisSpacing: 5,
-                  ),
-                  itemCount: controller.searchController.text.isEmpty
-                      ? controller.medicinedata.length
-                      : controller.itemslistMedicine.length,
-                  itemBuilder: (context, index) => CardWidgetMedicineCabinet(
-                      medicineModel: controller.searchController.text.isEmpty
-                          ? controller.medicinedata[index]
-                          : controller.itemslistMedicine[index])),
-            )
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 9 / 7,
+                  crossAxisSpacing: 5,
+                ),
+                itemCount: controller.searchController.text.isEmpty
+                    ? controller.medicinedata.length
+                    : controller.itemslistMedicine.length,
+                itemBuilder: (context, index) => CardWidgetMedicineCabinet(
+                  medicineModel: controller.searchController.text.isEmpty
+                      ? controller.medicinedata[index]
+                      : controller.itemslistMedicine[index],
+                ),
+              ),
+            ),
           ],
         ),
       ),

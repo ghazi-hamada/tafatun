@@ -12,6 +12,7 @@ class ExpiredMedicines extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.lazyPut<ExpiredMedicinesControllerImp>(
         () => ExpiredMedicinesControllerImp());
+
     return Scaffold(
         appBar: appbarWidget(),
         backgroundColor: const Color(0xffDBE9E6),
@@ -40,9 +41,12 @@ class ExpiredMedicines extends StatelessWidget {
                       crossAxisSpacing: 5,
                     ),
                     itemCount: controller.medicinedata.length,
-                    itemBuilder: (context, index) => CardWidgetMedicineCabinet(
-                        medicineModel: controller.medicinedata[index],
-                        isExpired: true)),
+                    itemBuilder: (context, index) =>
+                        GetBuilder<ExpiredMedicinesControllerImp>(
+                          builder: (controller) => CardWidgetMedicineCabinet(
+                              medicineModel: controller.medicinedata[index],
+                              isExpired: true),
+                        )),
               )
             ],
           ),

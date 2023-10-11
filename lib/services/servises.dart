@@ -11,30 +11,20 @@ class MyServices extends GetxService {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
     sharedPreferences = await SharedPreferences.getInstance();
+AwesomeNotifications().initialize(
+  // set the icon to a valid resource name
+  'resource://drawable/active',
+  [
+    NotificationChannel(
+      channelKey: 'basic_channel',
+      channelName: 'Basic notifications',
+      channelDescription: 'Notification channel for basic tests',
+      importance: NotificationImportance.High,
+    )
+  ],
+);
 
 
-    AwesomeNotifications().initialize('resource://drawable/active', [
-      NotificationChannel(
-        channelKey: 'basic_channel',
-        channelName: 'Basic notifications',
-        channelDescription: 'Notification channel for basic tests',
-        defaultColor: const Color(0xFF9D50DD),
-        ledColor: Colors.white,
-        playSound: true,
-        channelShowBadge: true,
-      ),
-      NotificationChannel(
-        channelKey: 'schedule_channel', 
-        channelName: 'schedule notifications',
-        channelDescription: 'Notification channel for basic tests',
-        // soundSource: "resource://raw/sound.mp3",
-        defaultColor: const Color(0xFF9D50DD),
-        ledColor: Colors.white,
-        playSound: true,
-        channelShowBadge: true,
-      ),
-
-    ]);
     return this;
   }
 }

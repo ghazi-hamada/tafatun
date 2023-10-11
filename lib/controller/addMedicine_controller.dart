@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:tafatun/app_routes.dart';
 import 'package:tafatun/controller/home_controller.dart';
 import 'package:tafatun/main.dart';
+import 'package:tafatun/model/medicine_model.dart';
 import 'package:tafatun/services/servises.dart';
 
 import '../model/medicine_date.dart';
@@ -40,6 +41,7 @@ abstract class AddMedicineController extends GetxController {
   int? repetition;
   final formKey = GlobalKey<FormState>();
   MyServices myServices = Get.find();
+  late MedicineModel medicineModel;
 }
 
 class AddMedicineControllerImp extends AddMedicineController {
@@ -57,7 +59,7 @@ class AddMedicineControllerImp extends AddMedicineController {
       '4',
     ],
   };
-//  Timestamp timestamp = Timestamp.fromDate(selectedDate);
+
   @override
   datePicker(BuildContext context, TextEditingController controller,
       int pickerIndex) async {
@@ -72,22 +74,20 @@ class AddMedicineControllerImp extends AddMedicineController {
     }
     if (picked != null) {
       switch (pickerIndex) {
-        //start take medicine
         case 1:
           startdate = picked;
           print("Picker 1 date selected is $startdate");
           break;
-        //stop take medicine
+
         case 2:
           stopdate = picked;
           print("Picker 2 date selected is $stopdate");
           break;
-        //expiration medicine
+
         case 3:
           enddate = picked;
           print("Picker 3 date selected is $enddate");
           break;
-        // Add cases for more pickers
       }
     }
   }
@@ -100,11 +100,7 @@ class AddMedicineControllerImp extends AddMedicineController {
         builder: (context) => const Center(child: CircularProgressIndicator()),
       );
       formKey.currentState!.save();
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection("medicines")
-          .add({
+      var firebaseJson = {
         'id': '',
         'nameMedicine': nameMedicine.text.trim(),
         'nameMedicineShort': nameMedicineShort.text.trim(),
@@ -116,29 +112,44 @@ class AddMedicineControllerImp extends AddMedicineController {
         'datereminder': Timestamp.fromDate(timeOfDayToDateTime(time!)),
         'repetition': repetition,
         'takeMedicine': false,
-      }).then((value) {
-        DateTime now = DateTime.now().add(Duration(hours: repetition!));
-        String formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(now);
-        MedicineDate mDate = MedicineDate(
-          medicineId: value.id,
-          date: formattedDate,
-        );
-        myServices.sharedPreferences
-            .setString("Medicine${value.id}", jsonEncode(mDate.toJson()));
+      };
+      if (Get.arguments != null) {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection('medicines')
+            .doc(medicineModel.id)
+            .update(firebaseJson);
+      } else {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection("medicines")
+            .add(firebaseJson)
+            .then((value) {
+          DateTime now = DateTime.now().add(Duration(hours: repetition!));
+          String formattedDate = DateFormat('yyyy-MM-dd HH:mm').format(now);
+          MedicineDate mDate = MedicineDate(
+            medicineId: value.id,
+            date: formattedDate,
+          );
+          myServices.sharedPreferences
+              .setString("Medicine${value.id}", jsonEncode(mDate.toJson()));
 
-        value.update({'id': value.id});
-        id = value.id;
-        print("this hash code ${value.id.hashCode}");
-        setSchedule(
-            hours: repetition!,
-            id: value.id.hashCode,
-            title: "تذكير الدواء",
-            body:
-                "حان وقت تناول الدواء ${doseMedicine.text.trim()} بجرعة ${nameMedicine.text.trim()} الخاص ب${myServices.sharedPreferences.getString('nameUser')}");
-      });
+          value.update({'id': value.id});
+          id = value.id;
+          print("this hash code ${value.id.hashCode}");
+          setSchedule(
+              hours: repetition!,
+              id: value.id.hashCode,
+              title: "تذكير الدواء",
+              body:
+                  "حان وقت تناول الدواء ${doseMedicine.text.trim()} بجرعة ${nameMedicine.text.trim()} الخاص ب${myServices.sharedPreferences.getString('nameUser')}");
+        });
+      }
       HomeControllerImp homeControllerImp = Get.find();
       homeControllerImp.getData();
-      //print all data
+
       Get.offNamed(AppRoutes.kNavbar);
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
@@ -146,6 +157,10 @@ class AddMedicineControllerImp extends AddMedicineController {
 
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      medicineModel = Get.arguments['medicineModel'];
+    }
+
     startController = TextEditingController();
     stopController = TextEditingController();
     dateendController = TextEditingController();
@@ -155,6 +170,14 @@ class AddMedicineControllerImp extends AddMedicineController {
     doseMedicine = TextEditingController();
     typeMedicine = TextEditingController();
     repetitionController = TextEditingController();
+
+    if (Get.arguments != null) {
+      nameMedicine.text = medicineModel.nameMedicine!;
+      nameMedicineShort.text = medicineModel.nameMedicineShort!;
+      doseMedicine.text = medicineModel.doseMedicine!;
+      repetitionController.text = medicineModel.repetition.toString();
+    }
+
     super.onInit();
   }
 
@@ -172,7 +195,6 @@ class AddMedicineControllerImp extends AddMedicineController {
     super.dispose();
   }
 
-  // ? I will edit this function
   @override
   validator(String value) {
     if (value.isEmpty) {
@@ -279,7 +301,6 @@ class AddMedicineControllerImp extends AddMedicineController {
         });
   }
 
-// function to transform DateTime to Duration to use it in the periodic function
   Duration timeToDuration(DateTime time) {
     final now = DateTime.now();
     return Duration(
@@ -290,30 +311,29 @@ class AddMedicineControllerImp extends AddMedicineController {
     );
   }
 
-  //function to transform Duration to minutes to use it in the periodic function
   int durationToMinutes(Duration duration) {
     return duration.inMinutes;
   }
 }
 
-  void setSchedule({
-    required int id,
-    required String title,
-    required String body,
-    required int hours,
-  }) async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: id,
-        channelKey: 'schedule_channel',
-        title: title,
-        body: body,
-      ),
-      schedule: NotificationCalendar(
-        repeats: true,
-        hour: 0,
-        minute: hours,
-        second: 0,
-      ),
-    );
-  }
+void setSchedule({
+  required int id,
+  required String title,
+  required String body,
+  required int hours,
+}) async {
+  await AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: id,
+      channelKey: 'schedule_channel',
+      title: title,
+      body: body,
+    ),
+    schedule: NotificationCalendar(
+      repeats: true,
+      hour: 0,
+      minute: hours,
+      second: 0,
+    ),
+  );
+}

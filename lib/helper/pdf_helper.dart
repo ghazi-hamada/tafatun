@@ -22,6 +22,10 @@ class PdfHelper {
   static Future openFile(File file) async {
     final url = file.path;
 
-    await OpenFile.open(url);
+    try {
+      await OpenFile.open(url).then((value) => print("done"));
+    } catch (e) {
+      print("error $e");
+    }
   }
 }

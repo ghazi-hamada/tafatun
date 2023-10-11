@@ -76,7 +76,7 @@ class PdfInvoicePdfHelper {
           children: cells.map((e) {
         final style = TextStyle(
           fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
-          // fontSize: isHeader ? 13 : 11,
+        
           font: arFont,
         );
         return Padding(

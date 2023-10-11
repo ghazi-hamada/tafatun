@@ -38,3 +38,4 @@ class MedicalControllerImp extends MedicalController {
     update();
   }
 }
+ 
